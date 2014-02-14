@@ -9,7 +9,7 @@
   interactive = auto
   grep = auto
 [push]
-  default = tracking       # defaultのpush先はtrackingしているリポジトリ
+  default = upstream # defaultのpush先はtrackingしているリポジトリ
 [core]
 	excludesfile = /Users/hosokawa0589/.gitignore_global
   autocrlf = input                 # CRLFを自動変換
@@ -17,8 +17,11 @@
   quotepath = false
 [merge]
   tool = vimdiff
+  ff = false
 [branch]
   autosetuprebase = always
+[pull]
+  rebase = true
 [alias]
   s   = status
   st  = status
@@ -32,6 +35,8 @@
   po  = push origin         # push origin
   pof = push -f origin      # force
   pu  = push -u origin      # push origin and set upstream
+  # push current branch to origin with --upstream
+  puc = "!f() { git push origin -u `git symbolic-ref --short HEAD` ;}; f"
   # rebase
   rbm = rebase --merge master       # masterへのrebaseはよく使うのでalias
   rbd = rebase --merge develop
@@ -45,6 +50,8 @@
   rbi5 = rebase -i HEAD^^^^^
   # merge
   mn  = merge --no-ff
+  rebase-and-merge = "!f() { git checkout $2 && git rebase --merge --no-ff $1 && git checkout $1 && git merge --no-ff $2 && echo '' && echo \"branch $2 is rebased onto $1 and merged into $1\"; }; f"
+  ram = "!f() { git rebase-and-merge $1 $2 ;}; f"
   # comit
   ad  = add
   c   = commit
@@ -69,24 +76,33 @@
   la  = log --pretty=\"format:%ad %h (%an): %s\" --date=short  # ざっくりログ出す
   lr  = log origin          # originのlog
   ll = log --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn%x09%Creset%s' # onelineでlogを出す
+  ll1 = log --date=short --max-count=1 --pretty=format:'%Cgreen%h %cd %Cblue%cn%x09%Creset%s' # onelineでlogを出す
   oneline = log --pretty=oneline
   ranking = shortlog -s -n --no-merges
   # logをtree表示
   log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
   log-all = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d%Creset'
   # reset
-  rhs  = reset --soft HEAD
-  rhs1 = reset --soft HEAD~
-  rhs2 = reset --soft HEAD~~
-  rhs3 = reset --soft HEAD~~~
-  rhs4 = reset --soft HEAD~~~~
-  rhs5 = reset --soft HEAD~~~~~
+  r    = reset HEAD
+  r1   = reset HEAD~
+  r2   = reset HEAD~~
+  r3   = reset HEAD~~~
+  r4   = reset HEAD~~~~
+  r5   = reset HEAD~~~~~
+  rsh  = reset --soft HEAD
+  rsh1 = reset --soft HEAD~
+  rsh2 = reset --soft HEAD~~
+  rsh3 = reset --soft HEAD~~~
+  rsh4 = reset --soft HEAD~~~~
+  rsh5 = reset --soft HEAD~~~~~
   rhh  = reset --hard HEAD       # 取り返しのつかないことをしてしまった……!
   rhh1 = reset --hard HEAD~
   rhh2 = reset --hard HEAD~~
   rhh3 = reset --hard HEAD~~~
   rhh4 = reset --hard HEAD~~~~
   rhh5 = reset --hard HEAD~~~~~
+  # git reset --hard HEAD を安全にした - 永遠に未完成 http://d.hatena.ne.jp/thinca/20120924/1348491052
+  cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
   # diff関連
   di = diff
   dm = diff master           # masterとのdiff
@@ -113,6 +129,8 @@
   cherry-ticket-numbers = "!f() { git cherry -v "$@" | cut -b 44- | awk 'match($0, /#[0-9]+/) {print substr($0, RSTART, RLENGTH)}' | sort -u ;}; f"
   # cherr -vに含まれるチケットを列挙する
   cherry-tickets = "!f() { git cherry -v "$@" | cut -b 44- | awk 'match($0, /#[0-9]+/) {print substr($0, RSTART+1, RLENGTH-1)}' | sort -u | xargs git issue --oneline  ;}; f"
+  # colorized cheery -v
+  cch= "!f() { git cherry -v "$@" | awk '{ if($1 == \"+\"){ color = \"green\" } if($1 == \"-\"){ color = \"red\" } cmd = \"git show --date=short --no-notes --pretty=format:\\047%C\" color $1 \" %h %Cgreen%cd %Cblue%cn%x09%Creset%s\\047 --summary \" $2; cmd | getline t; close(cmd); print t }' ;}; f"
 
   # grep関連
   gr = grep
@@ -141,6 +159,8 @@
   fhf = flow hotfix finish
   fhp = flow hotfix publish
   fs  = flow support
+
+  fizzbuzz = "!f() { seq "$@" | awk '$0=NR%15?NR%5?NR%3?$0:\"Fizz\":\"Buzz\":\"FizzBuzz\"' ;}; f"
 
 [http]
   sslVerify = false

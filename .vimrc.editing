@@ -34,10 +34,24 @@ command! Pt :set paste!
 " インサートモード中に<C-o>でyankした内容をputする
 inoremap <C-o> <ESC>:<C-U>YRPaste 'p'<CR>i
 
-" y9で行末までヤンク
+" y9 ydで行末までヤンク
 nmap y9 y$
-" y0で行頭までヤンク
+nmap yd y$
+" y0 ykで行頭までヤンク
 nmap y0 y^
+nmap yk y^
+
+" カーソルから行頭まで削除
+nnoremap <silent> <C-d> d0
+
+" カーソルから行頭まで削除(インサートモード)
+inoremap <silent> <C-k> <Esc>lc^
+" カーソルから行末まで削除(インサートモード)
+inoremap <silent> <C-d> <Esc>lc$
+" カーソルから行頭までヤンク(インサートモード)
+inoremap <silent> <C-y>e <Esc>ly0<Insert>
+" カーソルから行末までヤンク(インサートモード)
+inoremap <silent> <C-y>0 <Esc>ly$<Insert>
 
 "
 " 括弧を自動補完

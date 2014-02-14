@@ -17,6 +17,7 @@ set showcmd                      " コマンドをステータス行に表示
 set showmode                     " 現在のモードを表示
 set viminfo='50,<1000,s100,\"50  " viminfoファイルの設定
 set modelines=0                  " モードラインは無効
+set notitle                      " vimを使ってくれてありがとう
 
 " OSのクリップボードを使用する
 set clipboard+=unnamed
@@ -38,3 +39,7 @@ set helpfile=$VIMRUNTIME/doc/help.txt
 
 " ファイルタイプ判定をon
 filetype plugin on
+
+" GoLangのpluginをruntime pathへ
+set rtp+=$GOROOT/misc/vim
+exe "set rtp+=".globpath($GOPATH,  "src/github.com/nsf/gocode/vim")

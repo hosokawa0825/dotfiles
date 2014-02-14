@@ -8,8 +8,8 @@ if has('vim_starting')
 endif
 
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set rtp+=~/.vim/bundle/vundle/
+" call vundle#rc()
 
 " Edit {{{
   " NERD_commenter.vim :最強コメント処理 (<Leader>c<space>でコメントをトグル)
@@ -101,7 +101,10 @@ call vundle#rc()
   NeoBundle 'Shougo/neocomplcache'
 
   " neocomplcacheのsinpet補完
-  NeoBundle 'Shougo/neocomplcache-snippets-complete'
+  NeoBundle 'Shougo/neosnippet.git'
+
+  " various langueages snippets
+  NeoBundle 'honza/snipmate-snippets'
 
   " for rsense
   NeoBundle 'm2ym/rsense'
@@ -116,7 +119,8 @@ call vundle#rc()
 
 " Searching/Moving{{{
   " smooth_scroll.vim : スクロールを賢く
-  NeoBundle 'Smooth-Scroll'
+  " NeoBundle 'Smooth-Scroll'
+  NeoBundle 'yuroyoro/smooth_scroll.vim'
 
   " vim-smartword : 単語移動がスマートな感じで
   NeoBundle 'smartword'
@@ -142,6 +146,9 @@ call vundle#rc()
   " open-browser.vim : カーソルの下のURLを開くor単語を検索エンジンで検索
   NeoBundle 'tyru/open-browser.vim'
 
+  " VimからThe Silver Searcherを利用する
+  "  http://blog.glidenote.com/blog/2013/02/28/the-silver-searcher-better-than-ack/
+  NeoBundle 'rking/ag.vim'
 " }}}
 
 " Programming {{{
@@ -174,6 +181,12 @@ call vundle#rc()
 
   " NERD_tree, taglist, srcexpl の統合
   " NeoBundle 'trinity.vim'
+
+  " GoLang
+  " GoのVimプラギンをNeoBundleで管理する - 四角革命前夜
+  " http://d.hatena.ne.jp/sasaplus1/20120708/1341720437
+  NeoBundle 'go', {'type' : 'nosync'}
+  NeoBundle 'gocode', {'type' : 'nosync'}
 " }}}
 "
 " Syntax {{{
@@ -202,10 +215,10 @@ call vundle#rc()
   NeoBundle 'yuroyoro/vim-scala'
 
   " clojure
-  Bundle 'jondistad/vimclojure'
+  NeoBundle 'jondistad/vimclojure'
 
   " ghc-mod
-  Bundle 'eagletmt/ghcmod-vim'
+  NeoBundle 'eagletmt/ghcmod-vim'
 
   " syntax checking plugins exist for eruby, haml, html, javascript, php, python, ruby and sass.
   NeoBundle 'scrooloose/syntastic'
@@ -238,7 +251,10 @@ call vundle#rc()
   " vimproc : vimから非同期実行。vimshelleで必要
   NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
       \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
 
@@ -267,7 +283,7 @@ call vundle#rc()
   NeoBundle 'yuroyoro/vimdoc_ja'
 
   " vim上のtwitter client
-  NeoBundle 'TwitVim'
+  " NeoBundle 'TwitVim'
 
   " Lingrのclient
   NeoBundle 'tsukkee/lingr-vim'
@@ -278,6 +294,17 @@ call vundle#rc()
   " ステータスラインをカッコよくする
   NeoBundle 'Lokaltog/vim-powerline'
 
+  " Redmine on Vim
+  NeoBundle 'mattn/vim-metarw-redmine'
+
+  " A framework to read/write fake:path
+  NeoBundle 'kana/vim-metarw'
+
+  " shows a git diff in the 'gutter' (sign column)
+  NeoBundle 'airblade/vim-gitgutter'
+
+  " git-vim: Plugin files for calling git functions from inside Vim and Syntax files for git displays
+  NeoBundle 'motemen/git-vim'
 
 " }}}
 
