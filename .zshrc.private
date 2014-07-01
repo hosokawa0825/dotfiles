@@ -4,6 +4,6 @@ export https_proxy=https://sciproxy:9080/
 export HTTPS_PROXY=https://sciproxy:9080/
 export ALL_PROXY=https://sciproxy:9080/
 
-#source .zshrc
-source .zshrc.osx
-source .zshrc.alias
+source ~/.zshrc.base
+source ~/.zshrc.osx
+source ~/.zshrc.alias
