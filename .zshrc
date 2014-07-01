@@ -41,3 +41,13 @@ source $HOME/.zshrc.custom
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# code snippets
+function percol-snippets() {
+
+    local SNIPPETS=$(grep -v "^#" ~/.snippets | percol --query "$LBUFFER" | pbcopy)
+    zle clear-screen
+}
+
+zle -N percol-snippets
+bindkey '^s' percol-snippets

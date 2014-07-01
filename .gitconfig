@@ -1,6 +1,6 @@
 [user]
-	name = hosokawa toru
-	email = hosokawa.toru@simplex-cn.co.jp
+	name = hosokawa
+	email = globe_sessions@hotmail.com
 [color]
   # colorの設定(以下のコマンドは自動で色つける)
   status = auto
@@ -23,7 +23,7 @@
 [pull]
   rebase = true
 [alias]
-  s   = status
+  s   = status -sb
   st  = status
   ss  = status -s
   sh  = show
@@ -161,6 +161,9 @@
   fs  = flow support
 
   fizzbuzz = "!f() { seq "$@" | awk '$0=NR%15?NR%5?NR%3?$0:\"Fizz\":\"Buzz\":\"FizzBuzz\"' ;}; f"
+  
+  # マージ済みブランチを一括削除
+  delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
 
 [http]
   sslVerify = false
@@ -173,10 +176,10 @@
   generic = ^B move-page-up
   
 [difftool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+	cmd = /opt/homebrew-cask/Caskroom/diffmerge/4.2.0.697/DiffMerge.app/Contents/MacOS/DiffMerge --nosplash \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	cmd = /opt/homebrew-cask/Caskroom/diffmerge/4.2.0.697/DiffMerge.app/Contents/MacOS/DiffMerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 	trustExitCode = true
 [http]
   # proxy = http://sciproxy:9080
@@ -192,6 +195,7 @@ external = "/Applications/DeltaWalker.app/Contents/MacOS/git-diff"
 	trustExitCode = true
 [mergetool]
 	prompt = false
+	keepBackup = true
 
 #driver for merging XCode project files
 [merge "mergepbx"]

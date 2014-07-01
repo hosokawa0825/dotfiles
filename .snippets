@@ -1,0 +1,2 @@
+git branch --merged | grep -v '*' | xargs -I % git branch -d %
+git branch -a --merged | grep -v master | grep remotes/origin| sed -e 's% *remotes/origin/%%' | xargs -I% git push origin :%
