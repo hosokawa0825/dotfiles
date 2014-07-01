@@ -34,3 +34,25 @@ nnoremap <silent> <C-g><C-r> :<C-u>Rgrep<Space><C-r><C-w> *<Enter><CR>
 
 let Grep_Skip_Dirs = '.svn .git'
 let Grep_Skip_Files = '*.bak *~'
+
+" A wrapper function of :keeppatterns for Vim 7.4 compativility
+"
+" Thanks to @osyo_mem http://ideone.com/rgVoyf
+"
+function! s:keeppatterns(cmd)
+	let old = @/
+	try
+		execute a:cmd
+		call histdel("/", -1)
+	catch
+		echohl ErrorMsg
+		echo v:exception
+		echohl NONE
+	finally
+		let @/ = old
+	endtry
+endfunction
+
+command! -complete=command -nargs=*
+\	Keeppatterns
+\	call s:keeppatterns(<q-args>)

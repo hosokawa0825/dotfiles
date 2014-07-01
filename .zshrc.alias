@@ -138,3 +138,8 @@ alias grv='grepvim'
 gem-install() {
     gem install $1 && rbenv rehash
 }
+function _latest() {
+  echo "$1/`ls --format=single-column -t $1 | head -1`"
+}
+alias latest='_latest'
+

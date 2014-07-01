@@ -41,5 +41,7 @@ set helpfile=$VIMRUNTIME/doc/help.txt
 filetype plugin on
 
 " GoLangのpluginをruntime pathへ
-set rtp+=$GOROOT/misc/vim
-exe "set rtp+=".globpath($GOPATH,  "src/github.com/nsf/gocode/vim")
+let goroot = substitute(system("go env GOROOT"),  '\n$',  '',  '')
+let govimpath = goroot . '/misc/vim'
+exe "set rtp+=" . govimpath
+exe "set rtp+=" . globpath($GOPATH,  "src/github.com/nsf/gocode/vim")

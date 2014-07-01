@@ -24,10 +24,21 @@ export MAVEN_HOME=/usr/local/apache-maven-2.2.1
 export PATH=$MAVEN_HOME/bin:$PATH
 export MAVEN_OPTS=-Xmx1024M
 
-#rvm
-# if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 export PATH=$PATH:$HOME/.gem/ruby/1.8/bin
 export PATH=/opt/firefox:$PATH
 
 export PATH=$PATH:$HOME/.cabal/bin
+
+# node
+export NODE_PATH=$NODE_PATH:$(npm prefix -g 2>/dev/null)/lib/node_modules
+export PATH=$PATH:$(npm bin -g 2>/dev/null)
+
+
+# Go Lang
+export CGO_ENABLED=1
+export GOPATH=$HOME/dev/go
+export PATH=$PATH:$(go env GOROOT)/bin:$GOPATH/bin

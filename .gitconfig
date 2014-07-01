@@ -22,6 +22,10 @@
   autosetuprebase = always
 [pull]
   rebase = true
+[pager]
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
 [alias]
   s   = status -sb
   st  = status
@@ -77,6 +81,7 @@
   lr  = log origin          # originのlog
   ll = log --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn%x09%Creset%s' # onelineでlogを出す
   ll1 = log --date=short --max-count=1 --pretty=format:'%Cgreen%h %cd %Cblue%cn%x09%Creset%s' # onelineでlogを出す
+  lll = log --date=short --max-count=10 --pretty=format:'%Cgreen%h %cd %Cblue%cn%x09%Creset%s' # onelineでlogを出す
   oneline = log --pretty=oneline
   ranking = shortlog -s -n --no-merges
   # logをtree表示

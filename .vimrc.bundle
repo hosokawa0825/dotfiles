@@ -37,13 +37,13 @@ endif
   NeoBundle 'h1mesuke/vim-alignta'
 
   " YankRing.vim : ヤンクの履歴を管理し、順々に参照、出力できるようにする
-  NeoBundle 'YankRing.vim'
+  " NeoBundle 'YankRing.vim'
 
   " undo履歴を追える (need python support)
   NeoBundle 'Gundo'
 
   " surround.vim : テキストを括弧で囲む／削除する
-  NeoBundle 'tpope/surround.vim'
+  NeoBundle 'tpope/vim-surround'
 
   " smartchr.vim : ==などの前後を整形
   NeoBundle 'smartchr'
@@ -104,7 +104,7 @@ endif
   NeoBundle 'Shougo/neosnippet.git'
 
   " various langueages snippets
-  NeoBundle 'honza/snipmate-snippets'
+  NeoBundle 'honza/vim-snippets'
 
   " for rsense
   NeoBundle 'm2ym/rsense'
@@ -182,11 +182,6 @@ endif
   " NERD_tree, taglist, srcexpl の統合
   " NeoBundle 'trinity.vim'
 
-  " GoLang
-  " GoのVimプラギンをNeoBundleで管理する - 四角革命前夜
-  " http://d.hatena.ne.jp/sasaplus1/20120708/1341720437
-  NeoBundle 'go', {'type' : 'nosync'}
-  NeoBundle 'gocode', {'type' : 'nosync'}
 " }}}
 "
 " Syntax {{{
