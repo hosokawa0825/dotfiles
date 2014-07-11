@@ -110,9 +110,3 @@ export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 # iTerm2のタイトルバーにカレントディレクトリのパスを表示するコマンド
 echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"
 function chpwd() { echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"}
-
-#プロンプトは「$」１文字
-export PS1="$"
-
-# Gitリポジトリへのcd
-alias cdr='cd $(ghq list -p | percol)'

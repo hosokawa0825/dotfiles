@@ -1,6 +1,6 @@
 
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -25,7 +25,7 @@ ZSH=$HOME/.oh-my-zsh
 # DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="true"
+# DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
@@ -34,21 +34,11 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 
-plugins=(brew bundler capistrano coffee command-not-found extract gem git git-flow github heroku history history-substring-search lein mvn node npm osx pip python rails rails3 rake rbenv redis-cli rsync ruby svn thor urltools vagrant vi-mode vundle yum)
-source $ZSH/oh-my-zsh.sh
+#plugins=(brew bundler capistrano coffee command-not-found extract gem git git-flow github heroku history history-substring-search lein mvn node npm osx pip python rails rails3 rake rbenv redis-cli rsync ruby svn thor urltools vagrant vi-mode vundle yum)
+#source $ZSH/oh-my-zsh.sh
+
+# Uncomment following line if you want to disable command autocorrection
+DISABLE_CORRECTION="true"
 
 # Customize to your needs...
 source $HOME/.zshrc.custom
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-# code snippets
-function percol-snippets() {
-
-    local SNIPPETS=$(grep -v "^#" ~/.snippets | percol --query "$LBUFFER" | pbcopy)
-    zle clear-screen
-}
-
-zle -N percol-snippets
-bindkey '^s' percol-snippets
