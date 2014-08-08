@@ -172,7 +172,7 @@
 
 [http]
   sslVerify = false
-	proxy = sciproxy:9080
+	proxy = sciproxy07:9080
 
 [tig "bind"]
   generic = g move-first-line
@@ -200,7 +200,7 @@ external = "/Applications/DeltaWalker.app/Contents/MacOS/git-diff"
 	trustExitCode = true
 [mergetool]
 	prompt = false
-	keepBackup = true
+	keepBackup = false
 
 #driver for merging XCode project files
 [merge "mergepbx"]

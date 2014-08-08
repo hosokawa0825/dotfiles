@@ -705,8 +705,8 @@ alias sp='$(grep -v "^#" ~/.snippets | peco | sed "s/^\[[^]]*\] *//g")'
 #プロンプトは「$」１文字
 export PS1="$"
 
-# Gitリポジトリへのcd
-alias cdr='cd $(ghq list -p | peco)'
+# Gitリポジトリへのcd。ダブルクォートを付けているのは、パスに空白が含まれていても正しく動くようにするため
+alias cdr='cd "$(ghq list -p | peco)"'
 
 # ブランチ選択
 alias -g B='`git for-each-ref --format="%(authordate:short) %(refname)" --sort=-committerdate refs/heads refs/remotes | peco | cut -d" " -f2 | cut -d/ -f3-`'
@@ -723,7 +723,7 @@ function git-checkout-remote-all(){
     for remote_branch in `git branch -a | grep remotes | grep -v HEAD | grep -v master`; do
         remote_name="$(echo -n "$remote_branch" | cut -d/ -f2)"
         branch_name="$(echo -n "$remote_branch" | cut -d/ -f3-)"
-        git checkout -b $branch_name $remote_name/$branch_name
+        git checkout -b $branch_name --track $remote_name/$branch_name
         git checkout $branch_name
         git pull
     done
@@ -744,4 +744,10 @@ alias greps=grep-files-include-subdir
 alias psf=peco-search-file
 alias gcra=git-checkout-remote-all
 # プロセスkill
-alias pk='ps ax | peco | awk '{ print $1 }' | xargs kill'
+alias pk='ps ax | peco | awk "{ print \$1 }" | xargs kill'
+# ファイルを選択し、別のコマンドに渡す。open Fのように使う。
+alias -g F='`find . -maxdepth 1 | peco`'
+# コマンドを実行した後ターミナルを閉じたいときに使う。open F Eとか。
+alias -g E='&& exit'
+# ghqでcloneしたプロジェクトの中のファイルを開く
+alias op='cdr && open F E'
