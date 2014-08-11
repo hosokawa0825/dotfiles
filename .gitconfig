@@ -1,6 +1,8 @@
+[include]
+    path = .gitconfig.local
 [user]
-  name = Tomohito Ozaki
-  email = ozaki@yuroyoro.com
+	name = hosokawa toru
+	email = hosokawa.toru@simplex-cn.co.jp
 [color]
   # colorの設定(以下のコマンドは自動で色つける)
   status = auto
@@ -11,7 +13,7 @@
 [push]
   default = upstream # defaultのpush先はtrackingしているリポジトリ
 [core]
-  excludesfile = ~/.gitignore  # globalな.gitignoreの指定
+	excludesfile = /Users/hosokawa0589/.gitignore_global
   autocrlf = input                 # CRLFを自動変換
   editor = vim
   quotepath = false
@@ -178,3 +180,15 @@
 [ruby]
 	gemfile = /home/ozaki/dev/asp_weborder/Gemfile
   version = 2.1.1
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[diff]
+external = "/Applications/DeltaWalker.app/Contents/MacOS/git-diff"
+	tool = Kaleidoscope
+[difftool]
+	prompt = false
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false
