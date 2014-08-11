@@ -9,3 +9,5 @@ gem: --no-rdoc --no-ri
 :bulk_threshold: 1000
 :backtrace: false
 :update_sources: true
+
+http_proxy: http://sciproxy:9080

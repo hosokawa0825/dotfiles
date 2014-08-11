@@ -1,0 +1,7 @@
+export http_proxy=http://sciproxy07:9080/
+export HTTP_PROXY=http://sciproxy07:9080/
+export https_proxy=https://sciproxy07:9080/
+export HTTPS_PROXY=https://sciproxy07:9080/
+export ALL_PROXY=https://sciproxy07:9080/
+
+source ~/.zshrc.base

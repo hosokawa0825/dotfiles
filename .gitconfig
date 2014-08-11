@@ -1,8 +1,8 @@
 [include]
     path = .gitconfig.local
 [user]
-	name = hosokawa toru
-	email = hosokawa.toru@simplex-cn.co.jp
+	name = hosokawa
+	email = globe_sessions@hotmail.com
 [color]
   # colorの設定(以下のコマンドは自動で色つける)
   status = auto
@@ -29,7 +29,7 @@
   show = diff-highlight | less
   diff = diff-highlight | less
 [alias]
-  s   = status
+  s   = status -sb
   st  = status
   ss  = status -s
   sh  = show
@@ -168,10 +168,12 @@
   fs  = flow support
 
   fizzbuzz = "!f() { seq "$@" | awk '$0=NR%15?NR%5?NR%3?$0:\"Fizz\":\"Buzz\":\"FizzBuzz\"' ;}; f"
+  
+  # マージ済みブランチを一括削除
+  delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
 
 [http]
   sslVerify = false
-
 [tig "bind"]
   generic = g move-first-line
   generic = G move-last-line
@@ -192,3 +194,8 @@ external = "/Applications/DeltaWalker.app/Contents/MacOS/git-diff"
 	trustExitCode = true
 [mergetool]
 	prompt = false
+	keepBackup = false
+#driver for merging XCode project files
+[merge "mergepbx"]
+        name = XCode project files merger
+        driver = mergepbx %O %A %B

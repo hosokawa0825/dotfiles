@@ -1,5 +1,7 @@
 # users generic .zshrc file for zsh(1)
 
+# emacs like setting
+bindkey -e
 
 ## Environment variable configuration
 #
@@ -13,7 +15,7 @@ unset LESS
 
 ## Backspace key
 #
-bindkey "^?" backward-delete-char
+# bindkey "^?" backward-delete-char
 
 # プロンプトが表示されるたびにプロンプト文字列を評価、置換する
 setopt prompt_subst
@@ -42,12 +44,12 @@ case ${UID} in
     RED="%{${fg[red]}%}"
     CYAN="%{${fg[cyan]}%}"
     WHITE="%{${fg[white]}%}"
-    POH="( ꒪⌓꒪) $"
+    POH="$"
 
     #
     # Prompt
     #
-    PROMPT='%{$fg_bold[blue]%}${USER}@%m ${RESET}${WHITE}${POH} ${RESET}'
+    PROMPT='${POH}'
     RPROMPT='${RESET}${WHITE}[${BLUE}%(5~,%-2~/.../%2~,%~)% ${WHITE}]${RESET}'
 
     #
@@ -222,7 +224,7 @@ setopt extended_glob
 # emacs like keybind (e.x. Ctrl-a goes to head of a line and Ctrl-e goes
 #   to end of it)
 #
-bindkey -v
+# bindkey -v
 
 # historical backward/forward search with linehead string binded to ^P/^N
 #
@@ -235,8 +237,8 @@ bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 
 # glob(*)によるインクリメンタルサーチ
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^S' history-incremental-pattern-search-forward
+# bindkey '^R' history-incremental-pattern-search-backward
+# bindkey '^S' history-incremental-pattern-search-forward
 
 ## Command history configuration
 HISTFILE=~/.zsh_history
@@ -480,7 +482,6 @@ esac
 
 export EDITOR=vim
 export PATH=$PATH:$HOME/local/bin:/usr/local/git/bin
-export PATH=$PATH:$HOME/dotfiles/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:/sbin:/usr/local/bin
 export MANPATH=$MANPATH:/opt/local/man:/usr/local/share/man
@@ -494,9 +495,9 @@ expand-to-home-or-insert () {
 }
 
 # C-M-h でチートシートを表示する
-cheat-sheet () { zle -M "`cat ~/dotfiles/.zsh/cheat-sheet`" }
+cheat-sheet () { zle -M "`cat ~/.zsh/cheat-sheet`" }
 zle -N cheat-sheet
-# bindkey "^[^h" cheat-sheet
+bindkey "^h" cheat-sheet
 
 # zsh の exntended_glob と HEAD^^^ を共存させる。
 # http://subtech.g.hatena.ne.jp/cho45/20080617/1213629154
@@ -664,26 +665,89 @@ function __rm_single_file(){
 
 ## alias設定
 #
-[ -f ~/dotfiles/.zshrc.alias ] && source ~/dotfiles/.zshrc.alias
+[ -f ~/.zshrc.alias ] && source ~/.zshrc.alias
 
 case "${OSTYPE}" in
 # MacOSX
 darwin*)
     # ここに設定
-    [ -f ~/dotfiles/.zshrc.osx ] && source ~/dotfiles/.zshrc.osx
+    [ -f ~/.zshrc.osx ] && source ~/.zshrc.osx
     ;;
 # Linux
 linux*)
     # ここに設定
-    [ -f ~/dotfiles/.zshrc.linux ] && source ~/dotfiles/.zshrc.linux
+    [ -f ~/.zshrc.linux ] && source ~/.zshrc.linux
     ;;
 esac
 
 
 # ~/.zshrc
 # setting for percol
-source ~/.zsh/percol.zsh
+# source ~/.zsh/percol.zsh
+
+# setting for peco
+for f (~/.zsh/peco-sources/*) source "${f}"
+bindkey '^r' select-command-history
+bindkey '^p' peco-process-kill
+
+# TODO:なぜか動かない。
+bindkey '^@' select-dir-history
+
+# TODO:なぜかbindkeyだとうまく動かないのでaliasにした。
+#bindkey '^s' select-snippets
+#alias sp='$(grep -v "^#" ~/.snippets | peco --query "$LBUFFER")'
+alias sp='$(grep -v "^#" ~/.snippets | peco | sed "s/^\[[^]]*\] *//g")'
 
 ## local固有設定
 #
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+#プロンプトは「$」１文字
+export PS1="$"
+
+# Gitリポジトリへのcd。ダブルクォートを付けているのは、パスに空白が含まれていても正しく動くようにするため
+alias cdr='cd "$(ghq list -p | peco)"'
+
+# ブランチ選択
+alias -g B='`git for-each-ref --format="%(authordate:short) %(refname)" --sort=-committerdate refs/heads refs/remotes | peco | cut -d" " -f2 | cut -d/ -f3-`'
+
+# ssh先をpecoで選択
+alias sshp='ssh $(grep -iE "^host[[:space:]]+[^*]" ~/.ssh/config|peco|awk "{print \$2}")'
+
+# 画面共有先をPecoで選択
+alias vnc='open $(cat ~/.vnchosts | peco | awk "{print \$2}")'
+
+function find-name-without-warning() {( find . -name $1 > /dev/tty ) >& /dev/null}
+function grep-files-include-subdir() {find . -name "*.$1" -print | xargs grep -n "$2"}
+function git-checkout-remote-all(){
+    for remote_branch in `git branch -a | grep remotes | grep -v HEAD | grep -v master`; do
+        remote_name="$(echo -n "$remote_branch" | cut -d/ -f2)"
+        branch_name="$(echo -n "$remote_branch" | cut -d/ -f3-)"
+        git checkout -b $branch_name --track $remote_name/$branch_name
+        git checkout $branch_name
+        git pull
+    done
+}
+
+function peco-search-file() {
+  ${1:=$(pwd)}
+  local selected=$(find $1 -maxdepth 2 | peco)
+  if [[ -d $selected ]]; then
+    peco-search-file $selected
+  elif [[ -f $selected ]]; then
+    cat $selected
+  fi
+}
+
+alias findn=find-name-without-warning
+alias greps=grep-files-include-subdir
+alias psf=peco-search-file
+alias gcra=git-checkout-remote-all
+# プロセスkill
+alias pk='ps ax | peco | awk "{ print \$1 }" | xargs kill'
+# ファイルを選択し、別のコマンドに渡す。open Fのように使う。
+alias -g F='`find . -maxdepth 1 | peco`'
+# コマンドを実行した後ターミナルを閉じたいときに使う。open F Eとか。
+alias -g E='&& exit'
+# ghqでcloneしたプロジェクトの中のファイルを開く
+alias op='cdr && open F E'
