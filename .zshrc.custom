@@ -746,8 +746,25 @@ alias gcra=git-checkout-remote-all
 # プロセスkill
 alias pk='ps ax | peco | awk "{ print \$1 }" | xargs kill'
 # ファイルを選択し、別のコマンドに渡す。open Fのように使う。
-alias -g F='`find . -maxdepth 1 | peco`'
+alias -g F='"$(find . -maxdepth 1 | peco)"'
 # コマンドを実行した後ターミナルを閉じたいときに使う。open F Eとか。
 alias -g E='&& exit'
 # ghqでcloneしたプロジェクトの中のファイルを開く
 alias op='cdr && open F E'
+
+alias j="autojump"
+if [ -f `brew --prefix`/etc/autojump ]; then
+  . `brew --prefix`/etc/autojump
+fi
+
+function autojump-peco() {
+    local cd_history_path="~/.local/share/autojump/autojump.txt"
+    local SELECTED=$(eval more $cd_history_path | peco | cut -f2)
+    if [ 0 -ne ${#SELECTED} ]; then
+      eval echo "cd $SELECTED"
+      eval cd $SELECTED
+    fi
+}
+zle -N autojump-peco
+alias jj="autojump-peco"
+
