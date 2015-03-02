@@ -1,0 +1,21 @@
+# antigenでプラグインをインストールするdotfile。
+# プラグイン関連する設定があればそれも行う。
+
+# antigenの読み込み
+source ~/Documents/Dropbox/terminal/dotfiles/.zsh/antigen.zsh
+
+# パスをブックマークする
+antigen bundle mollifier/cd-bookmark
+alias cdb='cd-bookmark'
+
+function peco_open_bookmark() {
+    cd "$(cdb | peco | awk -F"|" '{ print $2 }')";
+}
+zle -N peco_open_bookmark
+bindkey '^b' peco_open_bookmark
+
+# 祖先のフォルダに楽に戻れるコマンド(bd)。
+antigen-bundle Tarrasch/zsh-bd
+
+# シンタックスハイライト
+antigen-bundle zsh-users/zsh-syntax-highlighting

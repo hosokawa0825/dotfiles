@@ -43,3 +43,4 @@ DISABLE_CORRECTION="true"
 # Customize to your needs...
 source $HOME/.zshrc.custom
 source $HOME/.zshrc.osx
+source $HOME/.zshrc.antigen
