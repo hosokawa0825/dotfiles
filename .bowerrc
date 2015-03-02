@@ -1,0 +1,6 @@
+{
+  "directory": "vendor",
+  "registry": "http://bower.herokuapp.com",
+  "proxy":"http://sciproxy07:9080/",
+  "https-proxy":"http://sciproxy07:9080/"
+}
