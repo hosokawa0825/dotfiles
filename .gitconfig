@@ -1,8 +1,7 @@
 [include]
-    path = .gitconfig.local
-[user]
-	name = hosokawa
-	email = globe_sessions@hotmail.com
+    path = ~/.gitconfig.local
+[ghq]
+    root = ~/Documents/ghq
 [color]
   # colorの設定(以下のコマンドは自動で色つける)
   status = auto
@@ -18,7 +17,7 @@
   editor = vim
   quotepath = false
 [merge]
-  tool = vimdiff
+	tool = Kaleidoscope
   ff = false
 [branch]
   autosetuprebase = always
@@ -179,9 +178,6 @@
   generic = G move-last-line
   generic = ^F move-page-down
   generic = ^B move-page-up
-[ruby]
-	gemfile = /home/ozaki/dev/asp_weborder/Gemfile
-  version = 2.1.1
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [diff]
@@ -199,3 +195,9 @@ external = "/Applications/DeltaWalker.app/Contents/MacOS/git-diff"
 [merge "mergepbx"]
         name = XCode project files merger
         driver = mergepbx %O %A %B
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
