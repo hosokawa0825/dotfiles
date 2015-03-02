@@ -58,10 +58,10 @@ case ${UID} in
     function zle-line-init zle-keymap-select {
       case $KEYMAP in
         vicmd)
-        PROMPT="%{$fg_bold[cyan]%}${USER}@%m ${RESET}${WHITE}${POH} ${RESET}"
+        PROMPT="%{$fg_bold[cyan]%}${USER} ${RESET}${WHITE}${POH} ${RESET}"
         ;;
         main|viins)
-        PROMPT="%{$fg_bold[blue]%}${USER}@%m ${RESET}${WHITE}${POH} ${RESET}"
+        PROMPT="%{$fg_bold[blue]%}${USER} ${RESET}${WHITE}${POH} ${RESET}"
         ;;
       esac
       zle reset-prompt
