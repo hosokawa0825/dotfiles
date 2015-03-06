@@ -129,4 +129,6 @@ bindkey '^[end' end-of-line
 
 autoload bashcompinit
 bashcompinit
-source ~/.zsh/android
+source ~/.zsh/android-completion
+# gradle補完はbrew install  md5sha1sumを実行していないとエラーになるので注意
+source ~/.zsh/gradle-completion
