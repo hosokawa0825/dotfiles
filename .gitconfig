@@ -10,7 +10,7 @@
   interactive = auto
   grep = auto
 [push]
-  default = upstream # defaultのpush先はtrackingしているリポジトリ
+	default = simple
 [core]
 	excludesfile = /Users/hosokawa0589/.gitignore_global
   autocrlf = input                 # CRLFを自動変換
