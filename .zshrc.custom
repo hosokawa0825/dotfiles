@@ -776,3 +776,12 @@ zle -N autojump-peco
 alias jj="autojump-peco"
 
 #export VAGRANT_DEFAULT_PROVIDER=parallels
+
+alias tailms='multitail -l "ssh ferrariMs01 tail -f /usr/local/simplex/cooper/mx/logs/fxcrichpresen-otc_fes1cweb01_21301.log" \
+  -L "ssh ferrariMs02 tail -f /usr/local/simplex/cooper/mx/logs/fxcrichpresen-otc_fes1cweb02_21301.log" \
+  -L "ssh ferrariMs03 tail -f /usr/local/simplex/cooper/mx/logs/fxcrichpresen-otc_fes1cweb03_21301.log" \
+  -L "ssh ferrariMs04 tail -f /usr/local/simplex/cooper/mx/logs/fxcrichpresen-otc_fes1cweb04_21301.log"'
+  
+alias tailmfx='multitail -l "ssh ferrariMfx01 tail -f /usr/local/simplex/cooper/tfx/logs/fxcrichpresen-otc_fes1cweb51_21301.log" \
+  -L "ssh ferrariMfx02 tail -f /usr/local/simplex/cooper/tfx/logs/fxcrichpresen-otc_fes1cweb52_21301.log" \
+  -L "ssh ferrariMfx03 tail -f /usr/local/simplex/cooper/tfx/logs/fxcrichpresen-otc_fes1cweb53_21301.log"'
