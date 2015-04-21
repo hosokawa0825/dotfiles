@@ -120,9 +120,6 @@ alias gm="VBoxManage list vms | peco | cut -f 1 | xargs -o -n 1 ssh -l ec2-user 
 # nvmを使えるようにする
 source /usr/local/Cellar/nvm/0.19.0/nvm.sh
 
-# コマンドのインクリメンタル補完
-source ~/Documents/Dropbox/terminal/dotfiles/.zsh/incr*.zsh
-
 # Cmd+←/→で行頭・行末に移動する。iTerm2に設定が必要。詳細はhttp://superuser.com/questions/349439/how-to-bind-command-key-in-zsh
 bindkey '^[begin' beginning-of-line
 bindkey '^[end' end-of-line
