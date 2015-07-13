@@ -753,7 +753,7 @@ alias -g E='&& exit'
 # ghqでcloneしたプロジェクトの中のファイルを開く
 alias op='cdr && open F E'
 # EC2インスタンスにSSHでログインする
-alias sshe="ec2list | peco | cut -f 3 | xargs -o -n 1 ssh -l ec2-user -i ~/.ssh/YENGEE.pem"
+alias sshe="ec2list | peco | cut -f 3 | xargs -o -n 1 ssh -l ec2-user -i ~/.ssh/YENGEE20150427.pem"
 alias ll="ls -la"
 # プロセスgrep
 alias psg="ps aux | grep"
