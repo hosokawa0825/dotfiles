@@ -103,8 +103,8 @@ alias tml='tmux list-window'
 
 #ec2
 export JAVA_HOME="$(/usr/libexec/java_home)"
-export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ssh/YENGEE.pem | /usr/bin/head -1)"
-export EC2_CERT="$(/bin/ls "$HOME"/.ssh/YENGEE.pem | /usr/bin/head -1)"
+export EC2_PRIVATE_KEY="$(/bin/ls "$HOME"/.ssh/YENGEE20150427.pem | /usr/bin/head -1)"
+export EC2_CERT="$(/bin/ls "$HOME"/.ssh/YENGEE20150427.pem | /usr/bin/head -1)"
 export EC2_HOME="/usr/local/Library/LinkedKegs/ec2-api-tools/jars"
 
 # iTerm2のタイトルバーにカレントディレクトリのパスを表示するコマンド
@@ -115,10 +115,10 @@ function chpwd() { echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'
 export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules
 
 # genymotionのVMを起動する
-alias gm="VBoxManage list vms | peco | cut -f 1 | xargs -o -n 1 ssh -l ec2-user -i ~/.ssh/YENGEE.pem"
+alias gm="VBoxManage list vms | peco | cut -f 1 | xargs -o -n 1 ssh -l ec2-user -i ~/.ssh/YENGEE20150427.pem"
 
 # nvmを使えるようにする
-source /usr/local/Cellar/nvm/0.19.0/nvm.sh
+source /usr/local/Cellar/nvm/0.25.4/nvm.sh
 
 # Cmd+←/→で行頭・行末に移動する。iTerm2に設定が必要。詳細はhttp://superuser.com/questions/349439/how-to-bind-command-key-in-zsh
 bindkey '^[begin' beginning-of-line

@@ -2,7 +2,7 @@
 # プラグイン関連する設定があればそれも行う。
 
 # antigenの読み込み
-source ~/Documents/Dropbox/terminal/dotfiles/.zsh/antigen.zsh
+source ~/.zsh/antigen.zsh
 
 # パスをブックマークする
 antigen bundle mollifier/cd-bookmark
