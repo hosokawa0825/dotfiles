@@ -7,7 +7,6 @@ export PATH=$PATH:$M2_HOME/bin
 
 # osx alias
 alias pbc='pbcopy'
-alias rm='mv2trash'
 
 # Terminal Colorの設定
 export CLICOLOR=1
@@ -129,3 +128,34 @@ bashcompinit
 source ~/.zsh/android-completion
 # gradle補完はbrew install  md5sha1sumを実行していないとエラーになるので注意
 source ~/.zsh/gradle-completion
+
+export ANDROID_HOME=~/android-sdk-macosx
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export JAVA7_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
+
+# pwd から上の階層に向かって コマンドを探す
+function upfind() {
+  dir=`pwd`
+  while [ "$dir" != "/" ]; do
+    p=`find "$dir" -maxdepth 1 -name $1`
+    if [ ! -z $p ]; then
+      echo "$p"
+      return
+    fi
+    dir=`dirname "$dir"`
+  done
+}
+
+# 近くにあるgradlewを探して実行する
+function gw() {
+  GW="$(upfind gradlew)"
+  if [ -z "$GW" ]; then
+    echo "Gradle wrapper not found. Use gradle."
+    gradle $@
+  else
+    echo "Gradle wrapper found. Use $GW."
+    $GW $@
+  fi
+}
