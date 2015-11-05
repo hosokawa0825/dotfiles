@@ -14,8 +14,10 @@ function peco_open_bookmark() {
 zle -N peco_open_bookmark
 bindkey '^b' peco_open_bookmark
 
-# 祖先のフォルダに楽に戻れるコマンド(bd)。
-antigen-bundle Tarrasch/zsh-bd
-
 # シンタックスハイライト
 antigen-bundle zsh-users/zsh-syntax-highlighting
+
+# pecoを使って選択的にcd出来る
+antigen-bundle b4b4r07/enhancd
+export ENHANCD_FILTER="/usr/local/bin/peco"
+source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-b4b4r07-SLASH-enhancd.git/enhancd.sh
